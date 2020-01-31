@@ -37,8 +37,12 @@ const ToDoAppScreen = () => {
           <Typography color="inherit">TO DO</Typography>
         </Toolbar>
       </AppBar>
-      <ToDoForm addToDo={addToDo} />
-      <ToDoList toDos={toDos} />
+      <Grid container justify="center" style={{ marginTop: "1rem" }}>
+        <Grid item xs={11} md={8} lg={4}>
+          <ToDoForm addToDo={addToDo} />
+          <ToDoList toDos={toDos} />
+        </Grid>
+      </Grid>
     </Paper>
   );
 };

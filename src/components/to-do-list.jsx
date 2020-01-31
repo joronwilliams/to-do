@@ -2,9 +2,9 @@ import React from "react";
 
 import Paper from "@material-ui/core/Paper";
 import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
+
+import ToDoListItem from "./to-do-list-item";
 
 const ToDoList = ({ toDos }) => {
   return (
@@ -12,9 +12,11 @@ const ToDoList = ({ toDos }) => {
       <List>
         {toDos.map(toDo => (
           <>
-            <ListItem>
-              <ListItemText>{toDo.task}</ListItemText>
-            </ListItem>
+            <ToDoListItem
+              task={toDo.task}
+              key={toDo.id}
+              completed={toDo.completed}
+            />
             <Divider />
           </>
         ))}
