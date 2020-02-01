@@ -6,7 +6,7 @@ import Divider from "@material-ui/core/Divider";
 
 import ToDoListItem from "./to-do-list-item";
 
-const ToDoList = ({ toDos }) => {
+const ToDoList = ({ toDos, deleteToDo, toggleToDo }) => {
   return (
     <Paper>
       <List>
@@ -15,7 +15,10 @@ const ToDoList = ({ toDos }) => {
             <ToDoListItem
               task={toDo.task}
               key={toDo.id}
+              id={toDo.id}
               completed={toDo.completed}
+              deleteToDo={deleteToDo}
+              toggleToDo={toggleToDo}
             />
             <Divider />
           </>

@@ -6,6 +6,8 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Grid from "@material-ui/core/Grid";
 
+import uuidv4 from "uuid/v4";
+
 import ToDoList from "../components/to-do-list";
 import ToDoForm from "../components/to-do-form";
 
@@ -19,7 +21,19 @@ const ToDoAppScreen = () => {
   const [toDos, setToDos] = useState(initialToDos);
 
   const addToDo = newToDoText => {
-    setToDos([...toDos, { id: 4, task: newToDoText, completed: false }]);
+    setToDos([...toDos, { id: uuidv4(), task: newToDoText, completed: false }]);
+  };
+
+  const deleteToDo = toDoId => {
+    const updatedToDos = toDos.filter(toDo => toDo.id !== toDoId);
+    setToDos(updatedToDos);
+  };
+
+  const toggleToDo = toDoId => {
+    const updatedToDos = toDos.map(toDo =>
+      toDoId === toDo.id ? { ...toDo, completed: !toDo.completed } : toDo
+    );
+    setToDos(updatedToDos);
   };
 
   return (
@@ -40,7 +54,11 @@ const ToDoAppScreen = () => {
       <Grid container justify="center" style={{ marginTop: "1rem" }}>
         <Grid item xs={11} md={8} lg={4}>
           <ToDoForm addToDo={addToDo} />
-          <ToDoList toDos={toDos} />
+          <ToDoList
+            toDos={toDos}
+            deleteToDo={deleteToDo}
+            toggleToDo={toggleToDo}
+          />
         </Grid>
       </Grid>
     </Paper>

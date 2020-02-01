@@ -8,10 +8,14 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 
-const ToDoListItem = ({ task, completed }) => {
+const ToDoListItem = ({ task, completed, deleteToDo, id, toggleToDo }) => {
   return (
     <ListItem>
-      <Checkbox tabIndex={-1} checked={completed} />
+      <Checkbox
+        tabIndex={-1}
+        checked={completed}
+        onClick={() => toggleToDo(id)}
+      />
       <ListItemText
         style={{ textDecoration: completed ? "line-through" : "none" }}
       >
@@ -21,7 +25,7 @@ const ToDoListItem = ({ task, completed }) => {
         <IconButton aria-label="Edit">
           <EditIcon />
         </IconButton>
-        <IconButton aria-label="Delete">
+        <IconButton aria-label="Delete" onClick={() => deleteToDo(id)}>
           <DeleteIcon />
         </IconButton>
       </ListItemSecondaryAction>
