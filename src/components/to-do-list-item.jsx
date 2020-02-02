@@ -8,27 +8,50 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 
-const ToDoListItem = ({ task, completed, deleteToDo, id, toggleToDo }) => {
+import useToggleState from "../hooks/useToggleState";
+
+import EditToDoForm from "./edit-to-do-form";
+
+const ToDoListItem = ({
+  task,
+  completed,
+  deleteToDo,
+  id,
+  toggleToDo,
+  editToDo
+}) => {
+  const [editState, setEditState] = useToggleState();
   return (
-    <ListItem>
-      <Checkbox
-        tabIndex={-1}
-        checked={completed}
-        onClick={() => toggleToDo(id)}
-      />
-      <ListItemText
-        style={{ textDecoration: completed ? "line-through" : "none" }}
-      >
-        {task}
-      </ListItemText>
-      <ListItemSecondaryAction>
-        <IconButton aria-label="Edit">
-          <EditIcon />
-        </IconButton>
-        <IconButton aria-label="Delete" onClick={() => deleteToDo(id)}>
-          <DeleteIcon />
-        </IconButton>
-      </ListItemSecondaryAction>
+    <ListItem style={{ height: "64px" }}>
+      {editState ? (
+        <EditToDoForm
+          editToDo={editToDo}
+          id={id}
+          task={task}
+          setEditState={setEditState}
+        />
+      ) : (
+        <>
+          <Checkbox
+            tabIndex={-1}
+            checked={completed}
+            onClick={() => toggleToDo(id)}
+          />
+          <ListItemText
+            style={{ textDecoration: completed ? "line-through" : "none" }}
+          >
+            {task}
+          </ListItemText>
+          <ListItemSecondaryAction>
+            <IconButton aria-label="Edit" onClick={() => setEditState()}>
+              <EditIcon />
+            </IconButton>
+            <IconButton aria-label="Delete" onClick={() => deleteToDo(id)}>
+              <DeleteIcon />
+            </IconButton>
+          </ListItemSecondaryAction>
+        </>
+      )}
     </ListItem>
   );
 };

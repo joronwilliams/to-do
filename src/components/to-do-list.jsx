@@ -6,26 +6,27 @@ import Divider from "@material-ui/core/Divider";
 
 import ToDoListItem from "./to-do-list-item";
 
-const ToDoList = ({ toDos, deleteToDo, toggleToDo }) => {
-  return (
-    <Paper>
-      <List>
-        {toDos.map(toDo => (
-          <>
-            <ToDoListItem
-              task={toDo.task}
-              key={toDo.id}
-              id={toDo.id}
-              completed={toDo.completed}
-              deleteToDo={deleteToDo}
-              toggleToDo={toggleToDo}
-            />
-            <Divider />
-          </>
-        ))}
-      </List>
-    </Paper>
-  );
+const ToDoList = ({ toDos, deleteToDo, toggleToDo, editToDo }) => {
+  if (toDos.length)
+    return (
+      <Paper>
+        <List>
+          {toDos.map((toDo, i) => (
+            <>
+              <ToDoListItem
+                {...toDo}
+                key={toDo.id}
+                deleteToDo={deleteToDo}
+                toggleToDo={toggleToDo}
+                editToDo={editToDo}
+              />
+              {i < toDos.length - 1 && <Divider />}
+            </>
+          ))}
+        </List>
+      </Paper>
+    );
+  return null;
 };
 
 export default ToDoList;
